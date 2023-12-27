@@ -6,7 +6,7 @@
 /*   By: sidiallo <sidiallo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 10:43:18 by sidiallo          #+#    #+#             */
-/*   Updated: 2023/12/19 18:25:05 by sidiallo         ###   ########.fr       */
+/*   Updated: 2023/12/27 10:33:40 by sidiallo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ char	*misssave(char *save)
 	i = 0;
 	while (save[i] && save[i] != '\n')
 		i++;
-    if (!save || !save[i])
+	if (!save || !save[i])
 	{
 		free(save);
 		return (NULL);
@@ -112,7 +112,7 @@ char	*get_next_line(int fd)
 // 	int	fd2 = open("test2.txt", O_RDONLY);
 // 	int	fd3 = open("test3.txt", O_RDONLY);
 //     char *line;
-	
+
 //     i = 1;
 // 	while (i < 4)
 // 	{
