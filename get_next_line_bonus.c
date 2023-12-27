@@ -1,21 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sidiallo <sidiallo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 10:43:18 by sidiallo          #+#    #+#             */
-/*   Updated: 2023/12/19 11:25:34 by sidiallo         ###   ########.fr       */
+/*   Updated: 2023/12/19 18:25:05 by sidiallo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-
-// #include <fcntl.h>
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <unistd.h>
+#include "get_next_line_bonus.h"
 
 char	*get_line(char *str)
 {
@@ -78,7 +73,7 @@ char	*misssave(char *save)
 	i = 0;
 	while (save[i] && save[i] != '\n')
 		i++;
-	if (!save[i])
+    if (!save || !save[i])
 	{
 		free(save);
 		return (NULL);
@@ -98,30 +93,42 @@ char	*misssave(char *save)
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*save;
+	static char	*save[4096];
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
-	save = read_line(fd, save);
-	if (!save)
+	save[fd] = read_line(fd, save[fd]);
+	if (!save[fd])
 		return (NULL);
-	line = get_line(save);
-	save = misssave(save);
+	line = get_line(save[fd]);
+	save[fd] = misssave(save[fd]);
 	return (line);
 }
 
 // int main(void)
 // {
-//     int fd = open("test_gnl.txt",O_RDWR );
-
+// 	int	i;
+//     int fd = open("test.txt", O_RDONLY);
+// 	int	fd2 = open("test2.txt", O_RDONLY);
+// 	int	fd3 = open("test3.txt", O_RDONLY);
 //     char *line;
-
-//     while ((line = get_next_line(fd)) != NULL)
-//     {
-//         printf("Line : %s", line);
-//         free(line);
-//     }
+	
+//     i = 1;
+// 	while (i < 4)
+// 	{
+// 		line = get_next_line(fd);
+// 		printf("line [%02d]: %s\n", i, line);
+// 		free(line);
+// 		line = get_next_line(fd2);
+// 		printf("line [%02d]: %s\n", i, line);
+// 		free(line);
+// 		line = get_next_line(fd3);
+// 		printf("line [%02d]: %s\n", i, line);
+// 		free(line);
+// 		i++;
+// 	}
 //     close(fd);
-
+// 	close(fd2);
+// 	close(fd3);
 //     return (0);
 // }
